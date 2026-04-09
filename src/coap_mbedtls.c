@@ -67,12 +67,14 @@
 #include <mbedtls/ssl.h>
 #include <mbedtls/version.h>
 
-/* Auto-detect mbedTLS 4.x which requires PSA Crypto APIs */
+/* Auto-detect mbedTLS 4.x which requires PSA Crypto APIs (if not set by build). */
+#ifndef COAP_USE_PSA_CRYPTO
 #if MBEDTLS_VERSION_NUMBER >= 0x04000000
 #define COAP_USE_PSA_CRYPTO 1
 #else
 #define COAP_USE_PSA_CRYPTO 0
 #endif
+#endif /* !COAP_USE_PSA_CRYPTO */
 
 #if COAP_USE_PSA_CRYPTO
 #include <psa/crypto.h>
